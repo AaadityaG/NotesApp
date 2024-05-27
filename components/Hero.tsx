@@ -1,13 +1,17 @@
-// import { Button } from "./ui/button";
 import { Button } from "./ui/button";
 import { buttonVariants } from "./ui/button";
-// import { HeroCards } from "./HeroCards";
-// import { GitHubLogoIcon } from "@radix-ui/react-icons";
 import Illu from "./../public/illu.svg"
 import {RegisterLink} from "@kinde-oss/kinde-auth-nextjs/components";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import Link from "next/link";
 
 
-export const Hero = () => {
+export const Hero = async () => {
+
+  const {getUser, isAuthenticated} = getKindeServerSession();
+
+  const isAuth = await isAuthenticated();
+
   return (
     <section className="container  flex  items-center justify-center py-20 px-10 md:py-32 lg:py-35 gap-4">
       <div className="text-center lg:text-center space-y-6 flex flex-col items-center w-full">
@@ -24,7 +28,6 @@ export const Hero = () => {
             <span className="inline bg-gradient-to-r from-[#ffdea2] via-[#f17e1f] to-[#d77b03] text-transparent bg-clip-text">
               Notesapp
             </span>{" "}
-            {/* developers */}
           </h2>
         </main>
 
@@ -33,9 +36,15 @@ export const Hero = () => {
         </p>
 
         <div className="">
-        <RegisterLink>
+          { (!isAuth) ?
+                      <RegisterLink>
           <Button className="">Get Started</Button>
         </ RegisterLink>
+        :
+        <Link href="/dashboard">
+        <Button>Dashboard
+          </Button></Link>
+        }
 
           
         </div>

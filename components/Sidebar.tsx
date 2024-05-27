@@ -1,22 +1,27 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "./button";
+import { Button } from "./ui/button";
 import { IoHomeOutline, IoSettingsOutline, IoPricetagsOutline } from "react-icons/io5";
+import Home from "./Home";
+import Settings from "./Settings";
+import Billing from "./Billing";
+
+
 
 const buttonConfig = [
-  { name: "button1", icon: <IoHomeOutline size={23} className="text-primary"/>, label: "Home", content: "Content for Button 1" },
-  { name: "button2", icon: <IoSettingsOutline size={23} className="text-primary"/>, label: "Setting", content: "Content for Button 2" },
-  { name: "button3", icon: <IoPricetagsOutline size={23} className="text-primary" />, label: "Billing", content: "Content for Button 3" },
+  { name: "button1", icon: <IoHomeOutline size={23} className="text-primary" />, label: "Home", content: <Home /> },
+  { name: "button2", icon: <IoSettingsOutline size={23} className="text-primary" />, label: "Settings", content: <Settings /> },
+  { name: "button3", icon: <IoPricetagsOutline size={23} className="text-primary" />, label: "Billing", content: <Billing /> },
 ];
-
-const Sidebar = () => {
+export default function Sidebar () {
   const [activeButton, setActiveButton] = useState<string | null>("button1");
 
   const handleButtonClick = (buttonName: string) => {
     setActiveButton(buttonName);
   };
 
+  
 
   return (
     <div className="flex p-7">
@@ -48,4 +53,3 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
