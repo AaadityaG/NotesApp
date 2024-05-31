@@ -1,9 +1,9 @@
 import { ReactNode } from "react";
-// import Dashboard from "./page";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
 import prisma from "@/lib/db";
-import Dashboard from "./page";
+import Dashboard from "@/components/DashNav";
+import Sidebar from "@/components/Sidebar";
 
 async function getData({email, id, firstName, lastName, profileImage}: {email:string, id: string , firstName:string | undefined | null, lastName: string| undefined | null, profileImage: string | undefined | null} ){
     // storing the users from kinde to prisma 
@@ -41,9 +41,15 @@ export default async function DashboardLayout({children} : {children : ReactNode
     await getData({email: user.email as string, firstName: user.given_name as string, id: user.id as string, lastName: user.family_name as string, profileImage: user.picture as string})
 
     return(
-        <div>
-        {children}
-        <Dashboard/>
+        <div className="flex flex-col space-y-6 mt-10">
+            <div className="container grid flex-1 gap-12 md:grid-cols-[200px_1fr]" >
+                <aside>
+                    <Dashboard/>
+                </aside>
+                <main>
+                    {children}
+                </main>
+            </div>
         </div>
     )
 }
