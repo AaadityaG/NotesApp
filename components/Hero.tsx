@@ -18,15 +18,15 @@ export const Hero = async () => {
         <main className="text-5xl md:text-6xl font-bold ">
           <h1 className="inline">
             Maintain {" "} your{" "} 
-            <span className="inline bg-gradient-to-r from-[#f59696]  to-[#d24747] text-transparent bg-clip-text">
+            <span className="bg-clip-text">
              tasks
             </span>
             
           </h1> <br />
           using{" "}
           <h2 className="inline">
-            <span className="inline bg-gradient-to-r from-[#ffdea2] via-[#f17e1f] to-[#d77b03] text-transparent bg-clip-text">
-              Notesapp
+            <span className="inline bg-gradient-to-b from-foreground  to-primary text-transparent bg-clip-text">
+              NotesApp
             </span>{" "}
           </h2>
         </main>

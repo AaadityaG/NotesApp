@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import prisma from "@/lib/db";
 import Dashboard from "@/components/DashNav";
 import Sidebar from "@/components/Sidebar";
+import { stripe } from "@/lib/stripe";
 
 async function getData({email, id, firstName, lastName, profileImage}: {email:string, id: string , firstName:string | undefined | null, lastName: string| undefined | null, profileImage: string | undefined | null} ){
     // storing the users from kinde to prisma 
@@ -25,6 +26,21 @@ async function getData({email, id, firstName, lastName, profileImage}: {email:st
                 id: id,
                 email: email,
                 name: name
+            }
+        })
+    }
+
+    if(!user?.stripeCustomerId){
+        const data = await stripe.customers.create({
+            email: email,
+        });
+
+        await prisma.user.update({
+            where: {
+                id: id,
+            },
+            data:{
+                stripeCustomerId: data.id
             }
         })
     }
